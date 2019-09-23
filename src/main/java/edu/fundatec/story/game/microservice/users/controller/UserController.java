@@ -34,16 +34,19 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity doLogin(@RequestBody UserDto userDto) {
-        boolean valid;
+    public ResponseEntity<UserDto> doLogin(@RequestBody UserDto userDto) {
+        UserDto userReturned;
         try {
-            valid = userService.verifyCredentials(userDto.getUsername(), userDto.getPassword());
+            userReturned = userService.verifyCredentials(userDto.getUsername(), userDto.getPassword());
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-        if (valid) {
-            return new ResponseEntity(HttpStatus.ACCEPTED);
+
+        if (userReturned.getId() == null) {
+            return new ResponseEntity<UserDto>(userReturned, HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+
+        return new ResponseEntity<>(userReturned, HttpStatus.ACCEPTED);
+
     }
 }

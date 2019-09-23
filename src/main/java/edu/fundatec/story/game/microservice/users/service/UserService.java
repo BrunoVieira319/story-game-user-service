@@ -23,10 +23,15 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public boolean verifyCredentials(String username, String password) {
+    public UserDto verifyCredentials(String username, String password) {
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
-            return user.get().getPassword().equals(password);
+            UserDto userDto = new UserDto();
+            if (user.get().getPassword().equals(password)) {
+                userDto.setId(user.get().getId());
+                userDto.setUsername(user.get().getUsername());
+            }
+            return userDto;
         }
         throw new IllegalArgumentException("User not found");
     }
