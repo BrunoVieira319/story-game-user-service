@@ -4,7 +4,8 @@ ZONE="us-central1-a"
 SOURCE_IMAGE="ubuntu-1804-bionic-v20190813a"
 PROJECT_ID=$1
 ACCOUNT_FILE=$2
-IMAGE_NAME="bards-poems-user-service-$(date +%s)"
+DATE=$(date +%s)
+IMAGE_NAME="bards-poems-user-service-1572228171"
 
 function provision() {
     cd provisioning/packer/ || exit
@@ -28,5 +29,4 @@ function launch() {
     cd ..
 }
 
-provision
 launch
