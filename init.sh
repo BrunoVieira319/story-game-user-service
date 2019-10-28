@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-sudo ./gradlew bootRun
+cd /home/app
+./gradlew bootRun
