@@ -1,0 +1,16 @@
+---
+- name: Install tools for adding PPA repositories
+  become: true
+  apt:
+    name: software-properties-common
+    state: latest
+    update_cache: yes
+
+- name: Add repository to openjdk
+  apt_repository:
+    repo: ppa:openjdk-r/ppa
+    update_cache: yes
+
+- name: Install java 8
+  apt:
+    name: openjdk-8-jdk

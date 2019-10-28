@@ -1,0 +1,22 @@
+---
+- name: Import the public key used by the package management system
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 9DA31620334BD75D9DCB49F368818C72E52529D4
+
+- name: Create a list file for MongoDB
+  copy:
+    dest: /etc/apt/sources.list.d/mongodb-org-4.0.list
+    content: "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse"
+
+- name: Install MongoDB
+  apt:
+    name: mongodb-org
+    install_recommends: yes
+    update_cache: yes
+
+- name: configure mongo to start on boot
+  systemd:
+    name: mongod
+    state: started
+    enabled: yes

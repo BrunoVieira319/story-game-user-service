@@ -1,0 +1,15 @@
+---
+- git:
+    repo: 'https://github.com/BrunoVieira319/story-game-user-service.git'
+    dest: "{{ app_path }}"
+
+- name: move unit file to systemd folder
+  copy:
+    src: /home/ubuntu/gradlew.service
+    dest: /etc/systemd/system/gradlew.service
+
+- name: configure service to start on boot
+  systemd:
+    name: gradlew
+    state: started
+    enabled: yes

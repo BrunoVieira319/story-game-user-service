@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.xml.ws.Response;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/v1/users")
@@ -43,10 +45,14 @@ public class UserController {
         }
 
         if (userReturned.getId() == null) {
-            return new ResponseEntity<UserDto>(userReturned, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(userReturned, HttpStatus.UNAUTHORIZED);
         }
 
         return new ResponseEntity<>(userReturned, HttpStatus.ACCEPTED);
+    }
 
+    @GetMapping("/health")
+    public ResponseEntity health() {
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

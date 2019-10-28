@@ -1,0 +1,35 @@
+{
+  "builders": [
+    {
+      "type": "googlecompute",
+      "account_file": "{{user `account_file`}}",
+      "project_id": "{{user `project_id`}}",
+      "zone": "{{user `zone`}}",
+      "source_image": "{{user `source_image`}}",
+      "machine_type": "n1-standard-1",
+      "ssh_username": "ubuntu",
+      "image_name": "{{user `image_name`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "gradlew.service",
+      "destination": "/home/ubuntu/gradlew.service"
+    },
+    {
+      "type": "shell",
+      "script": "install_dependencies.sh"
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "../ansible/playbook.yml",
+      "role_paths": [
+        "../ansible/roles/base",
+        "../ansible/roles/java",
+        "../ansible/roles/mongo",
+        "../ansible/roles/microservice"
+      ]
+    }
+  ]
+}

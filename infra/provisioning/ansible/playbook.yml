@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    app_path: /home/app
+  roles:
+    - base
+    - mongo
+    - java
+    - microservice
