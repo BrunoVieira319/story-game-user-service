@@ -5,8 +5,8 @@ provider "google" {
   version     = "2.14"
 }
 
-resource "google_compute_instance" "story-instance" {
-  name         = "story-service"
+resource "google_compute_instance" "user-instance" {
+  name         = "user-service"
   machine_type = var.machine_type
   zone         = var.zone
   tags         = ["http"]
@@ -23,8 +23,8 @@ resource "google_compute_instance" "story-instance" {
   }
 }
 
-resource "google_compute_firewall" "story-firewall" {
-  name    = "story-firewall"
+resource "google_compute_firewall" "user-firewall" {
+  name    = "user-service-firewall"
   network = "default"
 
   allow {
